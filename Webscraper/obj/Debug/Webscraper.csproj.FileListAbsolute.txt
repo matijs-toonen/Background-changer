@@ -7,3 +7,14 @@ C:\Development\Webscraper\Webscraper\Webscraper\obj\Debug\Webscraper.pdb
 C:\Development\Webscraper\Webscraper\Webscraper\bin\Debug\HtmlAgilityPack.dll
 C:\Development\Webscraper\Webscraper\Webscraper\bin\Debug\HtmlAgilityPack.pdb
 C:\Development\Webscraper\Webscraper\Webscraper\bin\Debug\HtmlAgilityPack.xml
+C:\Development\Webscraper\Webscraper-github\Webscraper\Webscraper\obj\Debug\Webscraper.csprojResolveAssemblyReference.cache
+C:\Development\Webscraper\Webscraper-github\Webscraper\Webscraper\obj\Debug\Webscraper.csproj.CoreCompileInputs.cache
+C:\Development\Webscraper\Webscraper-github\Webscraper\Webscraper\obj\Debug\Webscraper.exe
+C:\Development\Webscraper\Webscraper-github\Webscraper\Webscraper\obj\Debug\Webscraper.pdb
+C:\Development\Webscraper\Webscraper-github\Webscraper\Webscraper\bin\Debug\Webscraper.exe.config
+C:\Development\Webscraper\Webscraper-github\Webscraper\Webscraper\bin\Debug\Webscraper.exe
+C:\Development\Webscraper\Webscraper-github\Webscraper\Webscraper\bin\Debug\Webscraper.pdb
+C:\Development\Webscraper\Webscraper-github\Webscraper\Webscraper\bin\Debug\HtmlAgilityPack.dll
+C:\Development\Webscraper\Webscraper-github\Webscraper\Webscraper\bin\Debug\HtmlAgilityPack.pdb
+C:\Development\Webscraper\Webscraper-github\Webscraper\Webscraper\bin\Debug\HtmlAgilityPack.xml
+C:\Development\Webscraper\Webscraper-github\Webscraper\Webscraper\obj\Debug\Webscraper.csproj.CopyComplete

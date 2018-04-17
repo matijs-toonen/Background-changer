@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Webscraper.Classes;
+using Webscraper.Workflow;
 
 namespace Webscraper
 {
@@ -12,7 +12,7 @@ namespace Webscraper
         static void Main(string[] args)
         {
             string url = @"http://1920x1080hdwallpapers.com/anime/";
-            Worker.ImageSetter(url);
+            WallpaperChanger.ImageSetter(url);
             Environment.Exit(0);
         }
     }

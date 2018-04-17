@@ -50,7 +50,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\Worker.cs" />
+    <Compile Include="Workflow\ConnectionChecker.cs" />
+    <Compile Include="Workflow\WallpaperChanger.cs" />
+    <Compile Include="Workflow\Scraper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
