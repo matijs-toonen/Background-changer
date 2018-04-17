@@ -2,30 +2,22 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net;
-using System.Net.Mime;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.UI.HtmlControls;
 using HtmlAgilityPack;
 using Microsoft.Win32;
 
-namespace Webscraper.Classes
+namespace Webscraper.Workflow
 {
-    public static class Worker
+    public static class WallpaperChanger
     {
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         private static extern Int32 SystemParametersInfo(
             UInt32 action, UInt32 uParam, String vParam, UInt32 winIni);
 
-        [DllImport("wininet.dll")]
-        private static extern bool InternetGetConnectedState(out int Description, int ReservedValue);
-
         const UInt32 SPI_SETDESKWALLPAPER = 0x14;
         const UInt32 SPIF_UPDATEINIFILE = 0x01;
         const UInt32 SPIF_SENDWININICHANGE = 0x02;
-        
+
         private static List<string> ImageList = new List<string>();
         private static Random rnd = new Random();
 
@@ -33,43 +25,23 @@ namespace Webscraper.Classes
 
         public static void ImageSetter(string url)
         {
-            if (!CheckNet())
+            if (!ConnectionChecker.CheckNet())
             {
                 NoConnExistingImage();
                 return;
             }
             var page = rnd.Next(0, 27);
-            if (page == 0)
-                GetAllImages(url);
-            else
-            {
-                url += $@"page/{page}/";
-                GetAllImages(url);
-            }
+
+            if (page != 0)
+                url += $@"page/{page}";
+
+            var document = Scraper.GetAllImages(url);
+            DownloadImage(document);
         }
 
-        private static bool CheckNet()
+        private static void DownloadImage(HtmlDocument document)
         {
-            int desc;
-            return InternetGetConnectedState(out desc, 0);
-        }
-
-        private static void NoConnExistingImage()
-        {
-            var files = Directory.GetFiles(@"E:\webscraper\", "*.*");
-            var file = files[rnd.Next(files.Length)];
-
-            SetImage(file);
-        }
-
-        private static void GetAllImages(string url)
-        {
-            WebClient webclient = new WebClient();
-            string source = webclient.DownloadString(@url);
-            HtmlDocument document = new HtmlDocument();
-            document.LoadHtml(source);
-
-            foreach (var result in document.DocumentNode.Descendants("img").Select(x=>x.Attributes["src"]))
+            foreach (var result in document.DocumentNode.Descendants("img").Select(x => x.Attributes["src"]))
             {
                 if (result.Value.Contains("wallpaper"))
                 {
@@ -79,7 +51,7 @@ namespace Webscraper.Classes
                 }
             }
 
-            int pictureNum = rnd.Next(0, ImageList.Count -1);
+            int pictureNum = rnd.Next(0, ImageList.Count - 1);
             var diff1 = ImageList[pictureNum].LastIndexOf(@"/");
             diff1++;
             var diff2 = ImageList[pictureNum].LastIndexOf("g");
@@ -91,11 +63,19 @@ namespace Webscraper.Classes
 
             if (!File.Exists(fullName))
             {
-                var image = webclient.DownloadData(ImageList[pictureNum]);
+                var image = Scraper.webclient.DownloadData(ImageList[pictureNum]);
                 File.WriteAllBytes(fullName, image);
             }
 
             SetImage(fullName);
+        }
+
+        private static void NoConnExistingImage()
+        {
+            var files = Directory.GetFiles(@"E:\webscraper\", "*.*");
+            var file = files[rnd.Next(files.Length)];
+
+            SetImage(file);
         }
 
         private static void SetImage(string file)
