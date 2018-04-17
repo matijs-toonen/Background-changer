@@ -1,6 +1,9 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Security.Policy;
+using System.Threading.Tasks;
 using HtmlAgilityPack;
 
 namespace Webscraper.Workflow
