@@ -11,7 +11,7 @@ namespace Webscraper.Core.Workflow
     public static class TaskScheduler
     {
         private static List<string> scheduledTasks = new List<string>();
-        public static string TaskTitle = "Teswt";
+        public static string TaskTitle = "Desktop Wallpaper changer";
 
         public static void CreateTask()
         {
@@ -27,8 +27,11 @@ namespace Webscraper.Core.Workflow
                 var logonTrigger = new LogonTrigger();
                 logonTrigger.Repetition.Interval = TimeSpan.FromHours(1);
 
+                var creationTrigger = new RegistrationTrigger();
+                creationTrigger.Repetition.Interval = TimeSpan.FromHours(1);
+
                 taskDefination.Triggers.Add(logonTrigger);
-                taskDefination.Triggers.Add(new RegistrationTrigger());
+                taskDefination.Triggers.Add(creationTrigger);
                 taskDefination.Actions.Add(new ExecAction(@"C:\Development\Webscraper\Webscraper-github\Webscraper\ImageSetter\bin\Debug\ImageSetter.exe"));
                 taskDefination.Settings.DisallowStartIfOnBatteries = false;
                 taskDefination.Settings.MultipleInstances = TaskInstancesPolicy.StopExisting;
