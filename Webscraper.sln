@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webscraper", "Webscraper\Webscraper.csproj", "{E70A0EEC-F8AD-4D10-8A45-2A98F1CC000F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageSetter", "ImageSetter\ImageSetter.csproj", "{E70A0EEC-F8AD-4D10-8A45-2A98F1CC000F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UIWebscraper", "UIWebscraper\UIWebscraper.csproj", "{27E50D19-978C-4F9D-896D-0C930A7560DA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webscraper.Core", "Webscraper.Core\Webscraper.Core.csproj", "{6E28AE66-2D42-4A45-8F02-8E3C159757E2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{27E50D19-978C-4F9D-896D-0C930A7560DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{27E50D19-978C-4F9D-896D-0C930A7560DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{27E50D19-978C-4F9D-896D-0C930A7560DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E28AE66-2D42-4A45-8F02-8E3C159757E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E28AE66-2D42-4A45-8F02-8E3C159757E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E28AE66-2D42-4A45-8F02-8E3C159757E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E28AE66-2D42-4A45-8F02-8E3C159757E2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
