@@ -1,3 +1,48 @@
+# use glob syntax
+syntax: glob
 
+*.orig
+*.msi
+*.psess
+*.vsp
+*.vspx
+
+# Ignore Visual Studio 2008 files
+*UpgradeLog*.htm
 *.lock
+
+*.obj
 *.exe
+*.pdb
+*.user
+*.aps
+*.pch
+*.vspscc
+*_i.c
+*_p.c
+*.ncb
+*.suo
+*.tlb
+*.tlh
+*.bak
+*.cache
+*.ilk
+*.log
+*.lib
+*.sbr
+*.scc
+[Bb]in
+[Dd]ebug*/
+obj/
+[Rr]elease*/
+_ReSharper*/
+[Tt]est[Rr]esult*
+[Bb]uild[Ll]og.*
+*.[Pp]ublish.xml
+packages/**
+*.vsmdi
+# Ignore wxs files
+*.wxs
+*\.idea\*
+*\.vscode\*
+tools/*

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using ImageSetter.Workflow;
 using Webscraper.Core.Workflow;
 
