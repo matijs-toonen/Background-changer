@@ -18,11 +18,9 @@ namespace Webscraper.Core.Workflow
             using (var taskService = new TaskService())
             {
                 var task = taskService.RootFolder.AllTasks.FirstOrDefault(x => x.Name == TaskTitle);
-                if (task != null)
-                    return;
+                TaskDefinition taskDefinition = task?.Definition ?? taskService.NewTask();
 
-                TaskDefinition taskDefination = taskService.NewTask();
-                taskDefination.RegistrationInfo.Description = "Changes the desktop wallpaper every hour";
+                taskDefinition.RegistrationInfo.Description = "Changes the desktop wallpaper every hour";
 
                 var logonTrigger = new LogonTrigger();
                 logonTrigger.Repetition.Interval = TimeSpan.FromHours(1);
@@ -30,14 +28,17 @@ namespace Webscraper.Core.Workflow
                 var creationTrigger = new RegistrationTrigger();
                 creationTrigger.Repetition.Interval = TimeSpan.FromHours(1);
 
-                taskDefination.Triggers.Add(logonTrigger);
-                taskDefination.Triggers.Add(creationTrigger);
-                taskDefination.Actions.Add(new ExecAction(@"C:\Development\Webscraper\Webscraper-github\Webscraper\ImageSetter\bin\Debug\ImageSetter.exe"));
-                taskDefination.Settings.DisallowStartIfOnBatteries = false;
-                taskDefination.Settings.MultipleInstances = TaskInstancesPolicy.StopExisting;
-                taskDefination.Settings.StopIfGoingOnBatteries = false;
+                taskDefinition.Triggers.Clear();
+                taskDefinition.Actions.Clear();
 
-                taskService.RootFolder.RegisterTaskDefinition(TaskTitle, taskDefination);
+                taskDefinition.Triggers.Add(logonTrigger);
+                taskDefinition.Triggers.Add(creationTrigger);
+                taskDefinition.Actions.Add(new ExecAction(@"C:\Development\Webscraper\Webscraper-github\Webscraper\ImageSetter\bin\Debug\ImageSetter.exe"));
+                taskDefinition.Settings.DisallowStartIfOnBatteries = false;
+                taskDefinition.Settings.MultipleInstances = TaskInstancesPolicy.StopExisting;
+                taskDefinition.Settings.StopIfGoingOnBatteries = false;
+
+                taskService.RootFolder.RegisterTaskDefinition(TaskTitle, taskDefinition);
                 scheduledTasks.Add(TaskTitle);
             }
         }
