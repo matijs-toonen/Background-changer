@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using Webscraper.Core.Workflow;
 
-namespace UIWebscraper
+namespace UIWebscraper.Forms
 {
     public partial class WebSettings : Form
     {
@@ -16,7 +16,10 @@ namespace UIWebscraper
             if (Uri.IsWellFormedUriString(txtUrl.Text, UriKind.RelativeOrAbsolute))
             {
                 var document = Scraper.GetAllImages(txtUrl.Text);
-
+                foreach (var node in document.DocumentNode.ChildNodes)
+                {
+                    treeView.Nodes.Add(node.Name);
+                }
             }
         }
     }

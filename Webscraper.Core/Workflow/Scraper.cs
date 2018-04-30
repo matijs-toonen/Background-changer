@@ -5,12 +5,12 @@ namespace Webscraper.Core.Workflow
 {
     public static class Scraper
     {
-        public static WebClient webclient { get; set; }
+        public static WebClient Webclient { get; set; }
 
         public static HtmlDocument GetAllImages(string url)
         {
-            webclient = new WebClient();
-            string source = webclient.DownloadString(url);
+            Webclient = new WebClient();
+            string source = Webclient.DownloadString(url);
             HtmlDocument document = new HtmlDocument();
             document.LoadHtml(source);
             return document;

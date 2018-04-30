@@ -65,7 +65,7 @@ namespace ImageSetter.Workflow
 
             if (!File.Exists(fullName))
             {
-                var image = Scraper.webclient.DownloadData(ImageList[pictureNum]);
+                var image = Scraper.Webclient.DownloadData(ImageList[pictureNum]);
                 File.WriteAllBytes(fullName, image);
             }
 

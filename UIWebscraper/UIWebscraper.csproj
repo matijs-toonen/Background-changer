@@ -67,10 +67,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="WebSettings.cs">
+    <Compile Include="Forms\WebSettings.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="WebSettings.Designer.cs">
+    <Compile Include="Forms\WebSettings.Designer.cs">
       <DependentUpon>WebSettings.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
@@ -84,7 +84,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="WebSettings.resx">
+    <EmbeddedResource Include="Forms\WebSettings.resx">
       <DependentUpon>WebSettings.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
@@ -102,8 +102,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Webscraper.Core\Webscraper.Core\Webscraper.Core.csproj">
-      <Project>{6E28AE66-2D42-4A45-8F02-8E3C159757E2}</Project>
+    <ProjectReference Include="..\Webscraper.Core\Webscraper.Core.csproj">
+      <Project>{6e28ae66-2d42-4a45-8f02-8e3c159757e2}</Project>
       <Name>Webscraper.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\Webscraper\ImageSetter.csproj">

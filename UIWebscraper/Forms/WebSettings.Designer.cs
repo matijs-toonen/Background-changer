@@ -1,4 +1,4 @@
-﻿namespace UIWebscraper
+﻿namespace UIWebscraper.Forms
 {
     partial class WebSettings
     {
@@ -33,6 +33,7 @@
             this.txtUrl = new System.Windows.Forms.TextBox();
             this.btnGetHtml = new System.Windows.Forms.Button();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.treeView = new System.Windows.Forms.TreeView();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -66,11 +67,19 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
+            // treeView
+            // 
+            this.treeView.Location = new System.Drawing.Point(55, 79);
+            this.treeView.Name = "treeView";
+            this.treeView.Size = new System.Drawing.Size(121, 97);
+            this.treeView.TabIndex = 3;
+            // 
             // WebSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.treeView);
             this.Controls.Add(this.btnGetHtml);
             this.Controls.Add(this.txtUrl);
             this.Controls.Add(this.label1);
@@ -88,6 +97,7 @@
         private System.Windows.Forms.TextBox txtUrl;
         private System.Windows.Forms.Button btnGetHtml;
         private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.TreeView treeView;
     }
 }
 
