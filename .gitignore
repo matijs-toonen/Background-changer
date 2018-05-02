@@ -46,3 +46,8 @@ packages/**
 *\.idea\*
 *\.vscode\*
 tools/*
+*.ide
+*.ide-shm
+*.ide-wal
+*.cache
+*.cache
