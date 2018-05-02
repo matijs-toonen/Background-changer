@@ -7,7 +7,7 @@ namespace Webscraper.Core.Workflow
     {
         public static WebClient Webclient { get; set; }
 
-        public static HtmlDocument GetAllImages(string url)
+        public static HtmlDocument GetHtmlDocument(string url)
         {
             Webclient = new WebClient();
             string source = Webclient.DownloadString(url);

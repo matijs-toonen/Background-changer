@@ -10,7 +10,7 @@ namespace Webscraper.Core.Workflow
     /// </summary>
     public static class TaskScheduler
     {
-        private static List<string> scheduledTasks = new List<string>();
+        private static readonly List<string> ScheduledTasks = new List<string>();
         public static string ExecutableLocation {get; set;}
         public static string TaskTitle = "Desktop Wallpaper changer";
 
@@ -40,7 +40,7 @@ namespace Webscraper.Core.Workflow
                 taskDefinition.Settings.StopIfGoingOnBatteries = false;
 
                 taskService.RootFolder.RegisterTaskDefinition(TaskTitle, taskDefinition);
-                scheduledTasks.Add(TaskTitle);
+                ScheduledTasks.Add(TaskTitle);
             }
         }
 
@@ -51,7 +51,7 @@ namespace Webscraper.Core.Workflow
         {
             using (var taskService = new TaskService())
             {
-                foreach (var scheduledTask in scheduledTasks)
+                foreach (var scheduledTask in ScheduledTasks)
                 {
                     taskService.RootFolder.DeleteTask(scheduledTask);
                 }

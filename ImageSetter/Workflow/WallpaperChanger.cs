@@ -37,7 +37,7 @@ namespace ImageSetter.Workflow
             if (page != 0)
                 url += $@"page/{page}";
 
-            var document = Scraper.GetAllImages(url);
+            var document = Scraper.GetHtmlDocument(url);
             DownloadImage(document);
         }
 
