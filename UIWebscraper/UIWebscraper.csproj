@@ -106,7 +106,7 @@
       <Project>{6e28ae66-2d42-4a45-8f02-8e3c159757e2}</Project>
       <Name>Webscraper.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Webscraper\ImageSetter.csproj">
+    <ProjectReference Include="..\ImageSetter\ImageSetter.csproj">
       <Project>{E70A0EEC-F8AD-4D10-8A45-2A98F1CC000F}</Project>
       <Name>ImageSetter</Name>
     </ProjectReference>
