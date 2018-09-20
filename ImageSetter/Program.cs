@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Reflection;
+using System.Linq;
 using ImageSetter.Workflow;
-using Webscraper.Core.Workflow;
 
 namespace ImageSetter
 {
@@ -11,6 +10,11 @@ namespace ImageSetter
         {
             string url = @"http://1920x1080hdwallpapers.com/anime/";
             WallpaperChanger.ImageSetter(url);
+
+            var argument = args.FirstOrDefault();
+            if (argument == null)
+                ContextMenu.CreateContextMenu();
+               
             Environment.Exit(0);
         }
     }
