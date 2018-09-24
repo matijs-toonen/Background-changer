@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using ImageSetter.Workflow;
 
@@ -9,12 +11,7 @@ namespace ImageSetter
         public static void Main(string[] args)
         {
             string url = @"http://1920x1080hdwallpapers.com/anime/";
-            WallpaperChanger.ImageSetter(url);
-
-            var argument = args.FirstOrDefault();
-            if (argument == null)
-                ContextMenu.CreateContextMenu();
-               
+            WallpaperChanger.ImageSetter(url, args);
             Environment.Exit(0);
         }
     }

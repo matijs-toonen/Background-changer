@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.Caching;
 using System.Runtime.InteropServices;
 using HtmlAgilityPack;
 using Microsoft.Win32;
@@ -23,9 +24,19 @@ namespace ImageSetter.Workflow
         private static Random rnd = new Random();
 
         private static RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Control Panel\Desktop", true);
+        private static string _currentBackGround = (string) key.GetValue("WallPaper");
 
-        public static void ImageSetter(string url)
+        public static void ImageSetter(string url, string[] args)
         {
+            if (args.Contains("BlackList"))
+                BlackListCurrentBackground();
+
+            if (args.Contains("Previous"))
+            {
+                SetPreviousBackground();
+                return;
+            }
+                
             if (!ConnectionChecker.CheckNet())
             {
                 NoConnExistingImage();
@@ -40,6 +51,32 @@ namespace ImageSetter.Workflow
             DownloadImage(document);
         }
 
+        private static void BlackListCurrentBackground()
+        {
+            var currentBackGround = Path.GetFileNameWithoutExtension(_currentBackGround);
+            var path = new FileInfo(@"E:\webscraper\Config\blacklist.txt");
+            if (!path.Directory.Exists)
+                Directory.CreateDirectory(path.Directory.FullName);
+            
+            File.AppendAllLines(path.FullName, new List<string>{ currentBackGround });
+        }
+
+        private static void SetPreviousBackground()
+        {
+            var path = new FileInfo(@"E:\webscraper\Config\previous.txt");
+            if (!path.Directory.Exists)
+                return;
+
+            if (File.Exists(path.FullName))
+            {
+                var previousBackGround = File.ReadAllLines(path.FullName).FirstOrDefault();
+                if (previousBackGround == null)
+                    return;
+
+                SetImage(previousBackGround);
+            }
+        }
+
         private static void DownloadImage(HtmlDocument document)
         {
             foreach (var result in document.DocumentNode.Descendants("img").Select(x => x.Attributes["src"]))
@@ -51,6 +88,11 @@ namespace ImageSetter.Workflow
                     ImageList.Add(full);
                 }
             }
+
+            RemoveBlackListed();
+
+            if (!ImageList.Any())
+                return;
 
             int pictureNum = rnd.Next(0, ImageList.Count - 1);
             var diff1 = ImageList[pictureNum].LastIndexOf(@"/");
@@ -71,6 +113,27 @@ namespace ImageSetter.Workflow
             SetImage(fullName);
         }
 
+        private static void RemoveBlackListed()
+        {
+            var path = new FileInfo(@"E:\webscraper\Config\blacklist.txt");
+            if (path.Exists)
+            {
+                var blackListedItems = File.ReadAllLines(path.FullName);
+                ImageList.RemoveAll(image => IsBlackListed(image, blackListedItems));   
+            }
+        }
+
+        private static bool IsBlackListed(string picture, string[] blackListedItems)
+        { 
+            foreach (string item in blackListedItems)
+            {
+                if (picture.Contains(item))
+                    return true;
+            }
+
+            return false;
+        }
+
         private static void NoConnExistingImage()
         {
             var files = Directory.GetFiles(@"E:\webscraper\", "*.*");
@@ -81,6 +144,7 @@ namespace ImageSetter.Workflow
 
         private static void SetImage(string file)
         {
+            SavePreviousBackGround();
             string currentBackground = key.GetValue("Wallpaper").ToString();
             if (currentBackground == file)
             {
@@ -95,6 +159,15 @@ namespace ImageSetter.Workflow
                 0,
                 file,
                 SPIF_UPDATEINIFILE | SPIF_SENDWININICHANGE);
+        }
+
+        private static void SavePreviousBackGround()
+        {
+            var path = new FileInfo(@"E:\webscraper\Config\previous.txt");
+            if (!path.Directory.Exists)
+                Directory.CreateDirectory(path.Directory.FullName);
+
+            File.WriteAllLines(path.FullName, new List<string> {_currentBackGround});
         }
     }
 }
