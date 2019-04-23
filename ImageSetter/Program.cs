@@ -7,8 +7,7 @@ namespace ImageSetter
     {
         public static void Main(string[] args)
         {
-            string url = @"http://1920x1080hdwallpapers.com/anime/";
-            WallpaperChanger.ImageSetter(url, args);
+            WallpaperChanger.ImageSetter(args);
             Environment.Exit(0);
         }
     }

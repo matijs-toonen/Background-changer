@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Diagnostics;
+using System.Reflection;
 using ImageSetter.Workflow;
 using Webscraper.Core.Workflow;
 
@@ -8,10 +9,11 @@ namespace Webscraper.Flow
     {
         static void Main(string[] args)
         {
-            TaskScheduler.ExecutableLocation = Assembly.GetAssembly(typeof(WallpaperChanger)).Location;
+            var executableLocation = Assembly.GetAssembly(typeof(WallpaperChanger)).Location;
+            TaskScheduler.ExecutableLocation = executableLocation;
             ContextMenu.CreateContextMenu();
             TaskScheduler.CreateTask();
-            ImageSetter.Program.Main(args);
+            Process.Start(executableLocation);
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.Caching;
 using System.Runtime.InteropServices;
 using HtmlAgilityPack;
+using ImageSetter.Utils;
 using Microsoft.Win32;
 using Webscraper.Core.Workflow;
 
@@ -25,14 +26,14 @@ namespace ImageSetter.Workflow
         private static RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Control Panel\Desktop", true);
         private static string _currentBackGround = (string) key.GetValue("WallPaper");
 
-        public static void ImageSetter(string url, string[] args)
+        public static void ImageSetter(string[] args)
         {
             if (args.Contains("BlackList"))
                 BlackListCurrentBackground();
 
             if (args.Contains("Previous"))
             {
-                SetPreviousBackground();
+                SetImage(ConfigReader.Previous);
                 return;
             }
                 
@@ -43,6 +44,7 @@ namespace ImageSetter.Workflow
             }
             var page = rnd.Next(0, 27);
 
+            var url = ConfigReader.WallpaperSite;
             if (page != 0)
                 url += $@"page/{page}";
 
@@ -60,27 +62,7 @@ namespace ImageSetter.Workflow
         private static void BlackListCurrentBackground()
         {
             var currentBackGround = Path.GetFileNameWithoutExtension(_currentBackGround);
-            var path = new FileInfo(@"E:\webscraper\Config\blacklist.txt");
-            if (!path.Directory.Exists)
-                Directory.CreateDirectory(path.Directory.FullName);
-            
-            File.AppendAllLines(path.FullName, new List<string>{ currentBackGround });
-        }
-
-        private static void SetPreviousBackground()
-        {
-            var path = new FileInfo(@"E:\webscraper\Config\previous.txt");
-            if (!path.Directory.Exists)
-                return;
-
-            if (File.Exists(path.FullName))
-            {
-                var previousBackGround = File.ReadAllLines(path.FullName).FirstOrDefault();
-                if (previousBackGround == null)
-                    return;
-
-                SetImage(previousBackGround);
-            }
+            ConfigReader.AddBlacklist(currentBackGround);
         }
 
         private static void DownloadImage(HtmlDocument document)
@@ -122,13 +104,7 @@ namespace ImageSetter.Workflow
 
         private static List<string> RemoveBlackListed(List<string> images)
         {
-            var path = new FileInfo(@"E:\webscraper\Config\blacklist.txt");
-            if (path.Exists)
-            {
-                var blackListedItems = File.ReadAllLines(path.FullName);
-                images.RemoveAll(image => IsBlackListed(image, blackListedItems));   
-            }
-
+            images.RemoveAll(image => IsBlackListed(image, ConfigReader.Blacklist.Split(',')));
             return images;
         }
 
@@ -148,7 +124,8 @@ namespace ImageSetter.Workflow
 
         private static void NoConnExistingImage()
         {
-            var files = Directory.GetFiles(@"E:\webscraper\", "*.*").ToList();
+            var imageDirectory = ConfigReader.ImageLocation;
+            var files = Directory.GetFiles(imageDirectory, "*.*").ToList();
             files = RemoveBlackListed(files);
             var file = files[rnd.Next(files.Count) - 1];
 
@@ -157,7 +134,8 @@ namespace ImageSetter.Workflow
 
         private static void SetImage(string file)
         {
-            SavePreviousBackGround();
+            ConfigReader.Previous = _currentBackGround;
+
             string currentBackground = key.GetValue("Wallpaper").ToString();
             if (currentBackground == file)
             {
@@ -172,15 +150,6 @@ namespace ImageSetter.Workflow
                 0,
                 file,
                 SPIF_UPDATEINIFILE | SPIF_SENDWININICHANGE);
-        }
-
-        private static void SavePreviousBackGround()
-        {
-            var path = new FileInfo(@"E:\webscraper\Config\previous.txt");
-            if (!path.Directory.Exists)
-                Directory.CreateDirectory(path.Directory.FullName);
-
-            File.WriteAllLines(path.FullName, new List<string> {_currentBackGround});
         }
     }
 }
